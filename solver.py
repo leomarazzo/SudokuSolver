@@ -8,7 +8,7 @@ def print_sudoku(sudoku: List[Block]):
     blocks = sorted(sudoku, key=attrgetter("row", "column"))
     for i in range(9):
         if i % 3 == 0:
-            print("-"*46)
+            print("_"*46)
         row = []
         for block in get_blocks_from_row(blocks, i+1):
             possibilities = ",".join(
@@ -16,17 +16,15 @@ def print_sudoku(sudoku: List[Block]):
             s = block.number if block.number else possibilities if possibilities else "X"
             row.append(s)
         print(
-            "|{:^10} {:^10} {:^10}|{:^10} {:^10} {:^10}|{:^10} {:^10} {:^10}|".format(*row))
+            "|{:^4} {:^4} {:^4}|{:^4} {:^4} {:^4}|{:^4} {:^4} {:^4}|".format(*row))
+    print("_"*46)
 
 
 def solve_sudoku(sudoku: List[Block]):
     changes = True
-    i = 1
     scopes = [Scope.CUADRANT, Scope.COLUMN, Scope.ROW]
     while changes:
         changes = False
-        print(f"Iteration: {i}")
-        i += 1
         changes = last_possible(sudoku)
 
         for scope in scopes:

@@ -158,7 +158,6 @@ def x_wing(sudoku: List[Block]):
     it = 1
     
     while changes:
-        print('a')
         changes = False
         copy = copy_sudoku(sudoku)
         for column in range(1, 9):
@@ -168,9 +167,6 @@ def x_wing(sudoku: List[Block]):
                 if column_block.possibilities == None:
                     continue
                 
-                if column_block.row == 5 and column_block.column == 5:
-                    print(1)
-
                 for possibility in column_block.possibilities:
                     possible_blocks = [block for block in get_blocks_from_column(sudoku, column)
                                        if block.possibilities and possibility in block.possibilities and block.row != row]
@@ -204,15 +200,11 @@ def x_wing(sudoku: List[Block]):
                         for row_block in get_blocks_from_row(sudoku, row):
                             if (row_block.possibilities
                                     and row_block.column not in (column, pararell_column)):
-                                if row_block.row == 6 and row_block.column == 3:
-                                    print(column_block.row, column_block.column)
                                 row_block.possibilities.discard(possibility)
 
                         for row_block in get_blocks_from_row(sudoku, row_2):
                             if (row_block.possibilities
                                     and row_block.column not in (column, pararell_column)):
-                                if row_block.row == 6 and row_block.column == 3:
-                                    print(column_block.row, column_block.column)
                                 row_block.possibilities.discard(possibility)
 
         changes = is_different(sudoku, copy)
