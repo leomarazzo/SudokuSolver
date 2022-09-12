@@ -2,7 +2,7 @@ from ast import Return
 from enum import Enum
 from operator import attrgetter
 from typing import List
-from block import Block, copy_sudoku, get_blocks_from_column, get_blocks_from_cuadrant, get_blocks_from_row, get_specific_block, is_different
+from cell import Cell, copy_sudoku, get_blocks_from_column, get_blocks_from_cuadrant, get_blocks_from_row, get_specific_block, is_different
 
 
 def xor(x: bool, y: bool):
@@ -15,7 +15,7 @@ class Scope(Enum):
     CUADRANT = "cuadrant"
 
 
-def last_possible(sudoku: List[Block]):
+def last_possible(sudoku: List[Cell]):
     changes = True
     i = 1
     while changes:
@@ -52,7 +52,7 @@ def last_possible(sudoku: List[Block]):
     return i > 2
 
 
-def last_remaining(sudoku: List[Block], scope: Scope):
+def last_remaining(sudoku: List[Cell], scope: Scope):
     changes = True
     i = 1
     get_blocks = (get_blocks_from_cuadrant if scope == Scope.CUADRANT else
@@ -85,7 +85,7 @@ def last_remaining(sudoku: List[Block], scope: Scope):
     return i > 2
 
 
-def obvious_pair(sudoku: List[Block], scope: Scope):
+def obvious_pair(sudoku: List[Cell], scope: Scope):
     changes = True
     i = 1
     get_blocks = (get_blocks_from_cuadrant if scope == Scope.CUADRANT else
@@ -118,7 +118,7 @@ def obvious_pair(sudoku: List[Block], scope: Scope):
     return i > 2
 
 
-def pointing_pair(sudoku: List[Block]):
+def pointing_pair(sudoku: List[Cell]):
     changes = True
     i = 1
 
@@ -153,7 +153,7 @@ def pointing_pair(sudoku: List[Block]):
     return i > 2
 
 
-def x_wing(sudoku: List[Block]):
+def x_wing(sudoku: List[Cell]):
     changes = True
     it = 1
     

@@ -1,10 +1,10 @@
 from operator import attrgetter
 from typing import List
-from block import Block, get_blocks_from_row
+from cell import Cell, get_blocks_from_row
 from strategies import Scope, last_possible, last_remaining, obvious_pair, pointing_pair, x_wing
 
 
-def print_sudoku(sudoku: List[Block]):
+def print_sudoku(sudoku: List[Cell]):
     blocks = sorted(sudoku, key=attrgetter("row", "column"))
     for i in range(9):
         if i % 3 == 0:
@@ -20,7 +20,7 @@ def print_sudoku(sudoku: List[Block]):
     print("_"*46)
 
 
-def solve_sudoku(sudoku: List[Block]):
+def solve_sudoku(sudoku: List[Cell]):
     changes = True
     scopes = [Scope.CUADRANT, Scope.COLUMN, Scope.ROW]
     while changes:
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             except ValueError:
                 value = None
 
-            block = Block(i, j, cuadrant, None, value)
+            block = Cell(i, j, cuadrant, None, value)
             sudoku.append(block)
             j += 1
         i += 1
